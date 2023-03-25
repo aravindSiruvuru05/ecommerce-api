@@ -1,0 +1,68 @@
+# Compiled source #
+###################
+*.class
+*.dll
+*.exe
+*.o
+*.so
+
+# Packages #
+############
+# it's better to unpack these files and commit the raw source
+# git has its own built in compression methods
+*.7z
+*.dmg
+*.gz
+*.iso
+*.jar
+*.rar
+*.tar
+*.zip
+
+# Logs and databases #
+######################
+*.sqlite
+*/_logs/log-*
+
+# OS generated files #
+######################
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+.idea
+.vscode
+IDEA_autocomplete.php
+
+#  Configuration Files
+#########################
+*.pem
+local_env
+assets/uploadedfiles
+tmp/redis/appendonly.aof
+cgi-bin
+
+/bin
+# pkg
+tmp
+src/*/vendor
+
+src/haste/haste
+
+src/*/logs.txt
+
+*.tmp
+/tmp
+output
+share/bin
+_logs
+mysql-data
+share
+appendonly.aof
+
+# Generated files
+__debug_bin
+node_modules/
