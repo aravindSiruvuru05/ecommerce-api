@@ -1,0 +1,16 @@
+#!/bin/bash
+
+export COMPOSE_FILE=docker-compose.yml
+export ENV_FILE=local_env
+
+if [[ -z "$1" ]]; then
+    echo "Starting Application..."; echo $1;
+    docker-compose -f $COMPOSE_FILE --env-file ${ENV_FILE} up
+fi
+
+if [ "$1" = "run" ]; then
+    if [ "$2" = "build" ]; then
+        echo "Building Application..."; echo;
+        docker-compose -f $COMPOSE_FILE build
+    fi
+fi
