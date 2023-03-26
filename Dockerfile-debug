@@ -4,7 +4,8 @@ FROM golang:1.16-alpine
 # # Install Beego and its dependencies
 RUN apk add --no-cache git && \
     go get github.com/astaxie/beego@v1.12.3 && \
-    go get github.com/beego/bee@v1.12.3
+    go get github.com/beego/bee@v1.12.3 && \
+    go get github.com/go-delve/delve/cmd/dlv
 
 WORKDIR /go/src/haste
 
@@ -15,6 +16,6 @@ COPY ./src/haste .
 RUN go mod download
 RUN go mod tidy
 
-EXPOSE 8080
+EXPOSE 2345
 
-CMD ["bee", "run"]
+CMD ["dlv", "--listen=:2345", "--headless=true", "--api-version=2", "exec", "haste", "--check-go-version=false"]
