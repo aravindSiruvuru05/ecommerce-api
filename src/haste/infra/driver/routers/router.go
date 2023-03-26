@@ -15,7 +15,7 @@ func InitRoutes() {
 	ns := web.NewNamespace("/api/v1",
 		web.NSNamespace("/users",
 			web.NSRouter(
-				"/", &user.UserController{}, "get:GetAll",
+				"/", &user.UserController{}, "get:GetAllUsers",
 			),
 			web.NSRouter(
 				"/:id", &user.UserController{}, "get:GetById",
