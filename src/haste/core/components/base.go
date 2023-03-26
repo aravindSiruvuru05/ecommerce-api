@@ -4,6 +4,7 @@ import (
 	"context"
 	"fmt"
 	"haste/adapters/repositories"
+
 	"haste/pkg/types"
 	"haste/pkg/utils"
 	"net/http"
@@ -18,15 +19,10 @@ type BaseComponent struct {
 	Extra       map[string]interface{} `json:"-"`
 }
 
-// ComponentMap
 var ComponentMap = make(map[string]func(*BaseComponent) interface{})
 
-func (bc *BaseComponent) GetEntityObject(entityName string) interface{} {
-	return repositories.EntityMap[entityName](&repositories.BaseEntity{ReqCtx: bc.ReqCtx})
-}
-
-func (bc *BaseComponent) CreateBaseEntity() repositories.BaseEntity {
-	return repositories.BaseEntity{ReqCtx: bc.ReqCtx}
+func (bc *BaseComponent) GetRepository(repositoryName string) interface{} {
+	return repositories.RepositoryMap[repositoryName](&repositories.BaseRepository{ReqCtx: bc.ReqCtx})
 }
 
 func init() {

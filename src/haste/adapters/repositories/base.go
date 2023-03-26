@@ -5,13 +5,13 @@ import (
 	"fmt"
 )
 
-type BaseEntity struct {
+type BaseRepository struct {
 	ReqCtx context.Context
 }
 
-var EntityMap = make(map[string]func(*BaseEntity) interface{})
+var RepositoryMap = make(map[string]func(*BaseRepository) interface{})
 
-func (be *BaseEntity) Prepare() {
+func (be *BaseRepository) Prepare() {
 	fmt.Println("prepare base entity go")
 }
 
