@@ -1,3 +1,13 @@
+
+**Adding environmental variables** 
+
+1.  create a file in the project root named `local_env` and add below variables to it.
+
+```plaintext
+DB_ROOT_PASSWORD=root_pswd
+DB_NAME=haste_db
+```
+
 **Running the debugger inside docker container:**
 
 1.  Install the Go extension for VSCode. You can do this by searching for "Go" in the extensions tab on the left side of the VSCode window and clicking "Install
@@ -34,15 +44,9 @@ infrastructure: accountrepository, transactionrepository, customerrepository
 
 interface: accountport, transactionapi, customerapi
 
-   
- 
-
 doubts
 
 1\. naming handler in adapter is according to ports adap , but actual go given name is controller
-
-   
- 
 
 Hexagonal Architecture Layers
 
