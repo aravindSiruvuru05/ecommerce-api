@@ -13,6 +13,6 @@ type ErrorController struct {
 
 func (ec *ErrorController) Error404() {
 	err := errorutils.NewError("Page Not Found.")
-	ec.Data["json"] = requestresponseutils.PrepareResponse("ASDF", err, 404)
+	ec.Data["json"] = requestresponseutils.PrepareResponse("ASDF", err, "Resource not found!")
 	ec.ServeJSON()
 }

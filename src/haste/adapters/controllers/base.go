@@ -34,7 +34,6 @@ func (bc *BaseController) Prepare() {
 	fmt.Println("prepare ")
 	requestCtx := bc.Ctx.Request.Context()
 	bc.ReqCtx = requestCtx
-
 	bc.Errors = new(types.Errors)
 
 	// srv, _ := bc.ReqCtx.Value(types.Key("srv")).(string)
@@ -56,7 +55,6 @@ func (bc *BaseController) Prepare() {
 	} else if component, err := bc.InitComponent(); err != nil {
 		bc.Error(err)
 	} else {
-		fmt.Println("update component in controoler base==", app, component)
 		app.UpdateComponent(component)
 	}
 }
@@ -100,8 +98,9 @@ func (bc *BaseController) InitComponent() (interface{}, error) {
 
 // Error is used to stop execution, if any fatal error has occured.
 func (bc *BaseController) Error(err error) {
-	// logger.LogErr(bc.ReqCtx, "error", err)
-	bc.Data["json"] = requestresponseutils.PrepareResponse(nil, err, http.StatusInternalServerError)
+
+	fmt.Println("Error cam", err)
+	bc.Data["json"] = requestresponseutils.PrepareResponse(nil, err, "Something went wrong!")
 	bc.Ctx.Output.SetStatus(http.StatusInternalServerError)
 	bc.ServeJSON()
 	bc.Finish()  // need to call finish method manually before stopping execution
@@ -135,7 +134,6 @@ func (bc *BaseController) SetCookies(cookies *[]http.Cookie) {
 // GetRequestBody fetches the body of the incoming request.
 // It returns the body byte data.
 func (bc *BaseController) GetRequestBody() []byte {
-	fmt.Println("getReq body ____________ base controller")
 	bodyBytes := bc.Ctx.Input.RequestBody
 	if decodedBytes, err := base64.StdEncoding.DecodeString(string(bodyBytes)); err == nil {
 		bodyBytes = decodedBytes
