@@ -1,19 +1,21 @@
 # Use an official Golang runtime as a parent image
-FROM golang:1.16-alpine
+FROM golang:1.20-alpine
 
-# # Install Beego and its dependencies
-RUN apk add --no-cache git && \
-    go get github.com/astaxie/beego@v1.12.3 && \
-    go get github.com/beego/bee@v1.12.3
+# RUN go get -u github.com/kyleconroy/sqlc/cmd/sqlc@latest
 
 WORKDIR /go/src/haste
 
-COPY ./src/haste .
-
-# RUN go build -o main .
+COPY ./src/haste/go.mod ./
 
 RUN go mod download
 RUN go mod tidy
+
+# Install Beego and its dependencies - this is done after coping source code as go installs can only done in a module from 1.18. not out side
+RUN apk add git && \
+    go install github.com/beego/bee@v1.12.3 && \
+    go install -tags 'postgres' github.com/golang-migrate/migrate/v4/cmd/migrate@latest
+
+COPY ./src/haste .
 
 EXPOSE 8080
 

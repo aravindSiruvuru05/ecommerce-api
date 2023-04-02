@@ -3,8 +3,8 @@ package components
 import (
 	"context"
 	"fmt"
-	"haste/adapters/repositories"
 
+	"haste/adapters/repositories"
 	"haste/pkg/types"
 	"haste/pkg/utils"
 	"net/http"

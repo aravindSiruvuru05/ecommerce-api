@@ -1,10 +1,13 @@
 package user
 
 import (
+	"encoding/json"
 	"fmt"
 	"haste/adapters/controllers"
 	"haste/core/ports/handlers"
 	requestresponse "haste/pkg/utils/request_response"
+
+	"github.com/beego/beego/v2/adapter/validation"
 )
 
 // Operations about Users
@@ -24,9 +27,22 @@ func (c *UserController) UpdateComponent(component interface{}) {
 // @Success 200 {int} models.User.Id
 // @Failure 403 body is empty
 // @router / [post]
-func (u *UserController) Post() {
-	u.Data["json"] = map[string]string{"uid": "uid"}
-	u.ServeJSON()
+func (c *UserController) CreateUser() {
+	var data handlers.UserResponse
+	var err error
+
+	var form handlers.CreateUserForm
+	fmt.Println("form", form)
+	if err = json.Unmarshal(c.GetRequestBody(), &form); err == nil {
+		validation := validation.Validation{}
+		if valid, _ := validation.Valid(&form); !valid {
+			c.Error(err)
+		} else if data, err = c.Component.CreateUsers(form); err == nil {
+			c.Data["json"] = requestresponse.PrepareResponse(data, err, "Success")
+			c.ServeJSON()
+		}
+	}
+	c.Error(err)
 }
 
 // @Title GetAll
@@ -34,8 +50,8 @@ func (u *UserController) Post() {
 // @Success 200 {object} models.User
 // @router / [get]
 func (u *UserController) GetAllUsers() {
-	result := u.Component.GetAllUsers()
-	u.Data["json"] = requestresponse.PrepareResponse(result, nil, 200)
+	data, err := u.Component.GetAllUsers()
+	u.Data["json"] = requestresponse.PrepareResponse(data, err, "Success")
 	_ = u.ServeJSON()
 }
 

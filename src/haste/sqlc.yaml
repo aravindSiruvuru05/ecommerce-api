@@ -1,0 +1,12 @@
+# copied from sqlc github v1.40
+version: "1"
+packages:
+  - name: "db"
+    path: "./infra/driven/database/sqlc"
+    queries: "./infra/driven/database/query"
+    schema: "./infra/driven/database/migration"
+    engine: "postgresql"
+    emit_json_tags: true
+    emit_prepared_queries: false
+    emit_interface: false
+    emit_exact_table_names: false

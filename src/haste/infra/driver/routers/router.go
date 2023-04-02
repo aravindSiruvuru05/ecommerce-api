@@ -12,10 +12,12 @@ import (
 func InitRoutes() {
 	web.ErrorController(&controllers.ErrorController{})
 
-	ns := web.NewNamespace("/api/v1",
+	ns := web.NewNamespace("/haste/api/v1",
 		web.NSNamespace("/users",
 			web.NSRouter(
 				"/", &user.UserController{}, "get:GetAllUsers",
+			), web.NSRouter(
+				"/", &user.UserController{}, "post:CreateUser",
 			),
 			web.NSRouter(
 				"/:id", &user.UserController{}, "get:GetById",

@@ -2,12 +2,20 @@ package repositories
 
 import (
 	"context"
+	"database/sql"
 	"fmt"
+	"log"
+
+	db "haste/infra/driven/database/sqlc"
+
+	_ "github.com/lib/pq"
 )
 
 type BaseRepository struct {
 	ReqCtx context.Context
 }
+
+var TaskQueries *db.Queries
 
 var RepositoryMap = make(map[string]func(*BaseRepository) interface{})
 
@@ -16,5 +24,17 @@ func (be *BaseRepository) Prepare() {
 }
 
 func init() {
+	DBDriver := "postgres"
+	DBSource := "postgresql://user:user@db:5432/haste?sslmode=disable"
+
+	conn, err := sql.Open(DBDriver, DBSource)
+	if err != nil {
+		log.Fatal("cannot connect to db", err)
+	} else {
+		log.Println("Successfully connected to db.")
+	}
+
+	TaskQueries = db.New(conn)
+
 	fmt.Println("init of base entities")
 }
