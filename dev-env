@@ -2,7 +2,7 @@
 
 export COMPOSE_FILE=docker-compose.yml
 export ENV_FILE=local_env
-export DB_CONN=postgresql://user:user@db:5432/haste?sslmode=disable
+export DB_CONN=postgresql://user:1234@db:5432/haste_db?sslmode=disable
 export DB_MIGRATIONS_PATH=infra/driven/database/migration
 
 if [[ "$1" = "up" ]]; then

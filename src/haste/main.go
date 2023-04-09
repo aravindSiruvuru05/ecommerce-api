@@ -6,7 +6,9 @@ import (
 	"log"
 	"os"
 
+	_ "haste/adapters/repositories/account"
 	_ "haste/adapters/repositories/user"
+	_ "haste/core/components/account"
 	_ "haste/core/components/user"
 
 	"github.com/beego/beego/v2/server/web"

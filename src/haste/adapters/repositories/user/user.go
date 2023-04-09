@@ -14,7 +14,7 @@ type UserRepository struct {
 }
 
 func (r *UserRepository) CreatelUsersInDB(ctx context.Context, arg db.CreateUserParams) (repositoryPort.User, error) {
-	user, err := repositories.TaskQueries.CreateUser(ctx, arg)
+	user, err := repositories.DBQueries.CreateUser(ctx, arg)
 	return repositoryPort.User(user), err
 }
 

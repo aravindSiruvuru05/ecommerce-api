@@ -15,7 +15,7 @@ type BaseRepository struct {
 	ReqCtx context.Context
 }
 
-var TaskQueries *db.Queries
+var DBQueries *db.Queries
 
 var RepositoryMap = make(map[string]func(*BaseRepository) interface{})
 
@@ -34,7 +34,7 @@ func init() {
 		log.Println("Successfully connected to db.")
 	}
 
-	TaskQueries = db.New(conn)
+	DBQueries = db.New(conn)
 
 	fmt.Println("init of base entities")
 }
